@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Account Page - Study Buddy</title>
+
+    <!-- Styles vendors section -->
+    <link href="vendors/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Styles resources section -->
+    <link href="resources/css/style.css" rel="stylesheet">
+    <link href="resources/css/account.css" rel="stylesheet">
+
+    <!-- Scripts vendors section -->
+    <script src="vendors/js/jquery.min.js"></script>
+    <script src="vendors/js/bootstrap.min.js"></script>
+    <script src="vendors/js/md5.js"></script>
+    
+    <!-- Scripts resources section -->
+    <script src="resources/js/account.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top navigation_bar">
+      <div class="inline" ><img style="width: 15%;" src="resources/img/calendar.png"></img></div>
+        <div class="content" align="center" style="background-color:rgb(40, 40, 40);">
+            <div class="row">
+                <h3 style="color: #FFFFFA;">Hi, <%= name %> (<%= email %>)!</h3>
+            </div>
+            <div class="row">
+                <h4 style="color: #FFFFFA;">Welcome to Study Buddy!</h4>
+            </div>
+            <div clas="row">
+                <div class = "user-profile">
+                    <button style="background-color:rgb(40, 40, 40);" class="btn-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img style="color: #FFFFFA; width: 60px; height: 60px;" class="user-profile" src="<%= picture %>" alt="picture" />
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="/account">Account Page</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/">Sign Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form details -->
+    <div class="container form_details">
+
+        <!-- Form submit success -->
+        <div id="id_div_account_submit_success" style="display:none">
+            <div class="alert alert-success">
+                <strong>Success!</strong> Successfully submitted.
+            </div>
+        </div>
+
+        <!-- Form submit danger -->
+        <div id="id_div_account_submit_danger" style="display:none">
+            <div class="alert alert-danger">
+                <strong>Error!</strong> Submission error.
+            </div>
+        </div>
+        
+        <!-- Form submit danger -->
+        <div id="id_div_empty_danger" style="display:none">
+            <div class="alert alert-danger">
+                <strong>Error!</strong> Text field cannot be empty.
+            </div>
+        </div>
+
+        <a id="id_a_goback" href="">[Go Back]</a>
+
+        <!-- Form account -->
+        <form>
+            <div class="form-group">
+                <input type="text" readonly class="form-control-plaintext" style="border: 0; width:100%; display: block;" id="id_input_account_email" value="<%= email %>">
+            </div>
+            <div class="form-group">
+                <label for="id_input_account_name">Name</label>
+                <input type="text" class="form-control" id="id_input_account_name" value="<%= name %>">
+            </div>
+            <div class="form-group">
+                <label for="id_input_account_username">Username</label>
+                <input type="text" class="form-control" id="id_input_account_username" placeholder="Username" value="<%= username %>">
+            </div>
+            <div class="form-group">
+                <label for="id_input_account_password">Password</label>
+                <input type="password" class="form-control" id="id_input_account_password" placeholder="Password" value="<%= password %>">
+            </div>
+            <div class="form-group">
+                <label for="id_input_account_picture">Picture (URL)</label>
+                <input type="text" class="form-control" id="id_input_account_picture" value="<%= picture %>">
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" id="id_input_account_subscribed" <%= subscribed %>> Subscribe
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="id_button_account_submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

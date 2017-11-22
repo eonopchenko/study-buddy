@@ -1,0 +1,25 @@
+{
+	"Params": {
+		"DevMode": {
+			"Instrumentation": {
+				"command": "",
+				"env": {
+					"BLUEMIX_APP_MGMT_ENABLE": "devconsole+shell+inspector",
+					"NODE_ENV": "development"
+				},
+				"memory": "384M"
+			},
+			"Packager": "com.ibm.perfectstorm.cloudoe.packager.LiveEditDeploymentPackager"
+		},
+		"Name": "study-buddy",
+		"Target": {
+			"Url": "https://api.au-syd.bluemix.net",
+			"Org": "1e8615aa-3f9f-4b08-9862-a19afb6f6234",
+			"Space": "93210f62-0b44-447b-b0bc-48add09cd727"
+		},
+		"Timeout": 60
+	},
+	"Path": "",
+	"ServiceId": "com.ibm.cloudoe.orion.client.deploy",
+	"Type": "Cloud Foundry"
+}

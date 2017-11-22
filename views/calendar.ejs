@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Calendar Page - Study Buddy</title>
+
+    <!-- Styles vendors section -->
+    <link href="vendors/css/bootstrap.min.css" rel="stylesheet">
+    <link href='vendors/css/fullcalendar.min.css' rel='stylesheet' />
+    <link href='vendors/css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+    <link href='vendors/css/bootstrap-datetimepicker.min.css' rel='stylesheet' />
+
+    <!-- Styles resources section -->
+    <link href="resources/css/style.css" rel="stylesheet">
+    <link href="resources/css/calendar.css" rel="stylesheet">
+    
+    <!-- Scripts vendors section -->
+    <script src="vendors/js/jquery.min.js"></script>
+    <script src="vendors/js/bootstrap.min.js"></script>
+    <script src='vendors/js/moment.min.js'></script>
+    <script src='vendors/js/fullcalendar.min.js'></script>
+    <script src='vendors/js/bootstrap-datetimepicker.min.js'></script>
+
+    <!-- Scripts resources section -->
+    <script src='resources/js/calendar.js'></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top navigation_bar">
+      <div class="inline" ><img style="width: 15%;" src="resources/img/calendar.png"></img></div>
+        <div class="content" align="center" style="background-color:rgb(40, 40, 40);">
+            <div class="row">
+                <h3 style="color: #FFFFFA;">Hi, <%= name %> (<%= email %>)!</h3>
+            </div>
+            <div class="row">
+                <h4 style="color: #FFFFFA;">Welcome to Study Buddy!</h4>
+            </div>
+            <div clas="row">
+                <div class = "user-profile">
+                    <button style="background-color:rgb(40, 40, 40);" class="btn-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img style="color: #FFFFFA; width: 60px; height: 60px;" class="user-profile" src="<%= picture %>" alt="picture" />
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="/account">Account Page</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/">Sign Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form details -->
+    <div class="container form_details">
+
+        <!-- Form submit success -->
+        <div id="id_div_get_started" style="display:none">
+            <div class="alert alert-success">
+                <strong>Welcome!</strong> Click an empty cell to get started.
+            </div>
+        </div>
+
+        <!-- Form submit success -->
+        <div id="id_div_create_success" style="display:none">
+            <div class="alert alert-success">
+                <strong>Success!</strong> Successfully created.
+            </div>
+        </div>
+
+        <!-- Form submit success -->
+        <div id="id_div_remove_success" style="display:none">
+            <div class="alert alert-success">
+                <strong>Success!</strong> Successfully removed.
+            </div>
+        </div>
+
+        <!-- Form submit danger -->
+        <div id="id_div_create_danger" style="display:none">
+            <div class="alert alert-danger">
+                <strong>Error!</strong> Creation error.
+            </div>
+        </div>
+
+        <!-- Form submit danger -->
+        <div id="id_div_empty_danger" style="display:none">
+            <div class="alert alert-danger">
+                <strong>Error!</strong> Text field cannot be empty.
+            </div>
+        </div>
+        
+        <!-- Form submit danger -->
+        <div id="id_div_dates_danger" style="display:none">
+            <div class="alert alert-danger">
+                <strong>Error!</strong> End date cannot precede start date.
+            </div>
+        </div>
+
+        <!-- Form create -->
+        <div id="id_div_form_create" style="display:none">
+            <form class="form-inline">
+                <div class="input-group date" id="create_datetimepicker">
+                    <input type="text" class="form-control" id="id_input_create_start"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <div class="form-group mx-sm-3">
+                    <input type="text" class="form-control" placeholder="Title" id="id_input_create_title">
+                </div>
+                <div class="form-group mx-sm-3">
+                    <select class="form-control" id="id_input_create_category">
+                      <option>Category 1</option>
+                      <option>Category 2</option>
+                      <option>Category 3</option>
+                      <option>Category 4</option>
+                      <option>Category 5</option>
+                    </select>
+                </div>
+                <button type="submit" id="id_button_create" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+        <!-- Form update task -->
+        <div id="id_div_form_update_task" style="display:none"> <!--initiate div for update tasks form, set. Apply stlyle to display div to hide it without
+        deleting or recreating, useful for js methods  -->
+            <form class="form-horizontal"> <!-- set horizontal type for form,(all lables will align to test or input fields)  -->
+                <fieldset> <!-- will group all alements into a form -->
+                    <legend class="resizables"> Task Management </legend>  <!-- will convert text as cupture for fieldset element -->
+                    <div class="form-group"> <!-- will set optimal space between elements in form-->
+                        <!-- Row 1 (task one)-->
+                        <div class="row"> <!-- this class will make all 12 virtual columns for one row -->
+                            <div class="form-group">
+                                <div class="col-md-3" style="padding-left:45px; padding-right:0px"> <!-- create column row wich take 3 virtual columns from row tag. Add 
+                                    settings padding -->
+                                    <input type="text" autocomplete="off" class="form-control" id="id_input_task_1_title" placeholder="Task title" />
+                                </div> <!--form control will set width for input to 100%-->
+                                <div class="col-sm-1" style="padding-left:50px; padding-right:0px"> <!-- create column row wich take 1 virtual columns from row tag  -->
+                                    <h4>Start</h4>
+                                </div>
+                                <div class="col-md-2" style="padding-left:0px; padding-right:0px"> <!-- create column row wich take 2 virtual columns from row tag  -->
+                                    <div class='input-group date' id='id_div_task_1_start'>  <!-- it will create already finished date time picker-->
+                                        <input type='text' class="form-control" id='id_input_task_1_start'/>  <!--form control will set width for input to 100%-->
+                                        <span class="input-group-addon">  <!--will split icon and input field-->
+                                            <span class="glyphicon glyphicon-calendar"></span>  <!--will add calendar icon-->
+                                        </span> <!--Span tag it is like container for input-->
+                                    </div> <!--javascript code for date time picker-->
+                                    <script type="text/javascript">
+                                        $(function() {
+                                            $('#id_div_task_1_start').datetimepicker({
+                                                format: 'DD/MM/YYYY hh:mm A'
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                                <div class="col-sm-1" style="padding-left:50px; padding-right:0px">  <!-- create column row wich take 1 virtual columns from row tag  -->
+                                    <h4>End</h4>
+                                </div>
+                                <div class="col-md-2" style="padding-left:0px; padding-right:0px">
+                                    <div class='input-group date' id='id_div_task_1_end'>
+                                        <input type='text' class="form-control" id='id_input_task_1_end'/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $(function() {
+                                            $('#id_div_task_1_end').datetimepicker({
+                                                format: 'DD/MM/YYYY hh:mm A'
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                                <div class="col-sm-1" style="padding-left:50px; padding-right:0px">
+                                    <button id="id_button_task_1_save" type="submit" class="btn btn-success"> Save </button>
+                                </div>
+                                <div class="col-sm-1" style="padding-left:50px; padding-right:0px">
+                                    <button id="id_button_task_1_remove" type="submit" class="btn btn-danger"> Remove </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Row 2 -->
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-3" style="padding-left:45px; padding-right:0px">
+                                    <input type="text" autocomplete="off" class="form-control" id="id_input_task_2_title" placeholder="Task title" />
+                                </div>
+                                <div class="col-sm-1" style="padding-left:50px; padding-right:0px">
+                                    <h4>Start</h4>
+                                </div>
+                                <div class="col-md-2" style="padding-left:0px; padding-right:0px">
+                                    <div class='input-group date' id='id_div_task_2_start'>
+                                        <input type='text' class="form-control" id='id_input_task_2_start'/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $(function() {
+                                            $('#id_div_task_2_start').datetimepicker({
+                                                format: 'DD/MM/YYYY hh:mm A'
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                                <div class="col-sm-1" style="padding-left:50px; padding-right:0px">
+                                    <h4>End</h4>
+                                </div>
+                                <div class="col-md-2" style="padding-left:0px; padding-right:0px">
+                                    <div class='input-group date' id='id_div_task_2_end'>
+                                        <input type='text' class="form-control" id='id_input_task_2_end'/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $(function() {
+                                            $('#id_div_task_2_end').datetimepicker({
+                                                format: 'DD/MM/YYYY hh:mm A'
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                                <div class="col-sm-1" style="padding-left:50px; padding-right:0px">
+                                    <button id="id_button_task_2_save" type="submit" class="btn btn-success"> Save </button>
+                                </div>
+                                <div class="col-sm-1" style="padding-left:50px; padding-right:0px">
+                                    <button id="id_button_task_2_remove" type="submit" class="btn btn-danger"> Remove </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Row 3 -->
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-3" style="padding-left:45px; padding-right:0px">
+                                    <input type="text" autocomplete="off" class="form-control" id="id_input_task_3_title" placeholder="Task title" />
+                                </div>
+                                <div class="col-sm-1" style="padding-left:50px; padding-right:0px">
+                                    <h4>Start</h4>
+                                </div>
+                                <div class="col-md-2" style="padding-left:0px; padding-right:0px">
+                                    <div class='input-group date' id='id_div_task_3_start'>
+                                        <input type='text' class="form-control" id='id_input_task_3_start'/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $(function() {
+                                            $('#id_div_task_3_start').datetimepicker({
+                                                format: 'DD/MM/YYYY hh:mm A'
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                                <div class="col-sm-1" style="padding-left:50px; padding-right:0px">
+                                    <h4>End</h4>
+                                </div>
+                                <div class="col-md-2" style="padding-left:0px; padding-right:0px">
+                                    <div class='input-group date' id='id_div_task_3_end'>
+                                        <input type='text' class="form-control" id='id_input_task_3_end'/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $(function() {
+                                            $('#id_div_task_3_end').datetimepicker({
+                                                format: 'DD/MM/YYYY hh:mm A'
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                                <div class="col-sm-1" style="padding-left:50px; padding-right:0px">
+                                    <button id="id_button_task_3_save" type="submit" class="btn btn-success"> Save </button>
+                                </div>
+                                <div class="col-sm-1" style="padding-left:50px; padding-right:0px">
+                                    <button id="id_button_task_3_remove" type="submit" class="btn btn-danger"> Remove </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <!-- Calendar -->
+        <div id='calendar'></div>
+
+        <!-- Space -->
+        <div class="space"></div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Start</th>
+                            <th>End</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="id_td_task_1_title">title 1</td>
+                            <td id="id_td_task_1_start">start 1</td>
+                            <td id="id_td_task_1_end">end 1</td>
+                        </tr>
+                        <tr>
+                            <td id="id_td_task_2_title">title 1</td>
+                            <td id="id_td_task_2_start">start 1</td>
+                            <td id="id_td_task_2_end">end 1</td>
+                        </tr>
+                        <tr>
+                            <td id="id_td_task_3_title">title 1</td>
+                            <td id="id_td_task_3_start">start 1</td>
+                            <td id="id_td_task_3_end">end 1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Datetime picker script -->
+    <script type="text/javascript">
+    $(function() {
+        $('#create_datetimepicker').datetimepicker({
+            format: 'DD/MM/YYYY hh:mm A',
+            stepping: '30',
+        });
+    });
+    </script>
+</body>
+</html>
